@@ -4,7 +4,12 @@ The main thing
 """
 from __future__ import print_function
 
+#python libs
 import argparse
+
+#noice libs
+from database import NoiceDB
+
 
 class Noice():
     """
@@ -16,7 +21,7 @@ class Noice():
         noice create <title> <note>
     """
     def __init__(self):
-        pass
+        self.db = NoiceDB()
 
     def get(self, title):
         """
@@ -30,10 +35,9 @@ class Noice():
         """
         Gets a note from the user
         """
-        # save to local db? sqlite?
-        note = {title: new_note}
 
-        return '{0}\n\t{1}'.format(title, new_note)
+        self.db._create_table() # this needs to not be here
+        print(self.db.create_note(title, new_note))
 
 
 if __name__ == '__main__':
