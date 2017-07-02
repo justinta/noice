@@ -2,14 +2,24 @@
 '''
 The main thing
 '''
+import argparse
 
-def noice():
-    '''
+class Noice():
+    """
+    Noice.
     The start to something... Well, something.
 
     examples:
         noice get cmd
         noice create cmd <command>
-    '''
-    return 'make stuff'
+    """
+    def __init__(note):
+        self.note = note
+
+    def get():
+        """
+        Gets a note from the user
+        """
+        return self.note
+
 
