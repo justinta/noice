@@ -27,9 +27,8 @@ class Noice():
         """
         Gets a note from the user
         """
-        #TODO: make this work for real. need db or something
-        notes = {'test': 'test note'}
-        return notes[title]
+        note = self.db.select_note(title)
+        return note
 
     def create(self, title, new_note):
         """
