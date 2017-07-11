@@ -17,6 +17,8 @@ class NoiceDB():
 
         c = conn.cursor()
         c.execute(sql)
+        if 'SELECT' in sql:
+            return c.fetchone()
 
         conn.commit()
         conn.close()
@@ -25,23 +27,27 @@ class NoiceDB():
         """
         creates note table
         """
-        sql = 'CREATE TABLE notes (title, note)'
+        sql = '''CREATE TABLE notes (
+                    id  INTEGER PRIMARY KEY AUTOINCREMENT,
+                    title           TEXT    NOT NULL, 
+                    note            TEXT    NOT NULL)'''
         try:
             self._connect(sql)
-        except sqlite3.OperationalError:
-            print('table already created')
+        except sqlite3.OperationalError as e:
+            pass
 
     def select_note(self, title):
         """
         Get a note based on a given title
         """
-        sql = 'SELECT * FROM notes where title={0}'.format(title)
-        self._connect(sql)
+        sql = 'SELECT note FROM notes where title="{0}"'.format(title)
+        note = self._connect(sql)
+        return note[0]
 
     def create_note(self, title, note):
         """
         Create a note
         """
-        sql = 'INSERT INTO notes VALUES ("{0}", "{1}")'.format(title, note)
+        sql = 'INSERT INTO notes (title, note) VALUES ("{0}", "{1}")'.format(title, note)
         self._connect(sql)
         return 'Note created'

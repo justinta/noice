@@ -28,7 +28,7 @@ class Noice():
         Gets a note from the user
         """
         note = self.db.select_note(title)
-        return note
+        print(note)
 
     def create(self, title, new_note):
         """
@@ -42,8 +42,8 @@ class Noice():
 if __name__ == '__main__':
     notes = Noice()
 
+    #TODO: make this work as described in examples
     # gross...
-    #TODO: make this not gross
     parser = argparse.ArgumentParser()
     parser.add_argument('--create', action='store_true', default=False, help='create a note')
     parser.add_argument('--title', default=None, help='title of note')
