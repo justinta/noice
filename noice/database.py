@@ -14,6 +14,7 @@ class NoiceDB():
         connects to sqlite3 database
         """
         conn = sqlite3.connect('noice.db')
+        conn.row_factory = sqlite3.Row
 
         c = conn.cursor()
         c.execute(sql)
@@ -43,6 +44,14 @@ class NoiceDB():
         sql = 'SELECT note FROM notes where title="{0}"'.format(title)
         note = self._connect(sql)
         return note[0]
+
+    def select_all(self):
+        """
+        Get all the titles for given notes
+        """
+        sql = 'SELECT * from notes'
+        all_notes = self._connect(sql)
+        return all_notes
 
     def create_note(self, title, note):
         """

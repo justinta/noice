@@ -30,6 +30,13 @@ class Noice():
         note = self.db.select_note(title)
         print(note)
 
+    def get_all(self):
+        """
+        Get all the notes or titles
+        """
+        full = self.db.select_all()
+        print(full['title'])
+
     def create(self, title, new_note):
         """
         Gets a note from the user
@@ -43,15 +50,17 @@ if __name__ == '__main__':
     notes = Noice()
 
     #TODO: make this work as described in examples
-    # gross...
     parser = argparse.ArgumentParser()
     parser.add_argument('--create', action='store_true', default=False, help='create a note')
     parser.add_argument('--title', default=None, help='title of note')
     parser.add_argument('--note', default=None, help='the note')
     parser.add_argument('--get', action='store_true', default=False, help='get a note')
+    parser.add_argument('--get-all', action='store_true', default=False, help='get a note')
     args = parser.parse_args()
 
     if args.create:
         notes.create(args.title, args.note)
     if args.get:
         notes.get(args.title)
+    if args.get_all:
+        notes.get_all()
